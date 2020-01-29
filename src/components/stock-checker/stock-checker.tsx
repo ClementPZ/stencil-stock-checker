@@ -22,11 +22,12 @@ export class StockChecker {
                 <button id="stock-checker-submit" type="submit">Show stock price</button>
             </form>,
             <div id="stock-checker-result">
-                <p id="stock-checker-result-text">Price: </p>
-                <p id="stock-checker-result-price">
+                <h3 id="stock-checker-result-text">Price: </h3>
+                <h3 id="stock-checker-result-price">
                     {0}
-                </p>
-            </div>
+                </>
+            </div>,
+            <p>Stock checker proudly developped with Stencil.JS 🥰</p>
         ]
     }
 }
