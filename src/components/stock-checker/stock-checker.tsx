@@ -20,9 +20,9 @@ export class StockChecker {
         .then(data => {
             return this.price = +data['Global Quote']['05. price'];
         })
-        // .catch(err => {
-        //     console.log(err);
-        // })
+        .catch(err => {
+            console.log(err);
+        })
     }
     render() {
         return [
