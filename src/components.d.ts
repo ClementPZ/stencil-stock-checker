@@ -24,6 +24,7 @@ export namespace Components {
     */
     'middle': string;
   }
+  interface MyStockChecker {}
 }
 
 declare global {
@@ -34,8 +35,15 @@ declare global {
     prototype: HTMLMyComponentElement;
     new (): HTMLMyComponentElement;
   };
+
+  interface HTMLMyStockCheckerElement extends Components.MyStockChecker, HTMLStencilElement {}
+  var HTMLMyStockCheckerElement: {
+    prototype: HTMLMyStockCheckerElement;
+    new (): HTMLMyStockCheckerElement;
+  };
   interface HTMLElementTagNameMap {
     'my-component': HTMLMyComponentElement;
+    'my-stock-checker': HTMLMyStockCheckerElement;
   }
 }
 
@@ -54,9 +62,11 @@ declare namespace LocalJSX {
     */
     'middle'?: string;
   }
+  interface MyStockChecker {}
 
   interface IntrinsicElements {
     'my-component': MyComponent;
+    'my-stock-checker': MyStockChecker;
   }
 }
 
@@ -67,6 +77,7 @@ declare module "@stencil/core" {
   export namespace JSX {
     interface IntrinsicElements {
       'my-component': LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+      'my-stock-checker': LocalJSX.MyStockChecker & JSXBase.HTMLAttributes<HTMLMyStockCheckerElement>;
     }
   }
 }
