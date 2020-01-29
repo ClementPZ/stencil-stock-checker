@@ -74,3 +74,18 @@ input {
     border: 1px solid lightcoral;
     border-radius: 9px;
 }
+@media (max-width: 450px) {
+    #stock-checker-result-text {
+        display: none;
+    }
+    #stock-checker-result {
+        display: block;
+    }
+    #stock-checker-result-price {
+        text-align: center;
+    }
+    :host {
+        width: 80%;
+        padding: 24px;
+    }
+}

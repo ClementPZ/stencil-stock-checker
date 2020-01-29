@@ -18,7 +18,7 @@ export class StockChecker {
         fetch("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=demo")
         .then(resp => resp.json())
         .then(data => {
-            return this.price = +data['Global Quote']['05. price'];
+            this.price = +data['Global Quote']['05. price'];
         })
         .catch(err => {
             console.log(err);
@@ -31,8 +31,8 @@ export class StockChecker {
                 <button id="stock-checker-submit" type="submit">Show stock price</button>
             </form>,
             <div id="stock-checker-result">
-                <h3 id="stock-checker-result-text">Price:</h3>
-                <h3 id="stock-checker-result-price">$ {this.price}</h3>
+                <h4 id="stock-checker-result-text">Price:</h4>
+                <h4 id="stock-checker-result-price">$ {this.price}</h4>
             </div>,
             <p>Stock checker proudly developped with Stencil.JS 🥰</p>
         ]
