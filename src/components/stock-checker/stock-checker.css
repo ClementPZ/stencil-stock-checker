@@ -30,11 +30,11 @@ button:hover {
     background-color: lightcoral;
     color: white;
     border: 1px solid lightcoral;
+    box-shadow: 0px 1px 4px rgba(0,0,0,0.2);
 }
-button:focus {
+form button:focus,
+form input:focus {
     outline: none;
-}
-button:active {
     box-shadow: 0px 1px 4px rgba(0,0,0,0.2);
 }
 input {
@@ -48,10 +48,6 @@ input {
     border-radius: 9px;  
     border: 1px solid lightcoral;
     box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
-}
-input:focus {
-    outline: none;
-    box-shadow: 0px 1px 4px rgba(0,0,0,0.2);
 }
 #stock-checker-result {
     display: flex;

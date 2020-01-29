@@ -24,7 +24,9 @@ export namespace Components {
     */
     'middle': string;
   }
-  interface MyStockChecker {}
+  interface MyStockChecker {
+    'price': number;
+  }
 }
 
 declare global {
@@ -62,7 +64,9 @@ declare namespace LocalJSX {
     */
     'middle'?: string;
   }
-  interface MyStockChecker {}
+  interface MyStockChecker {
+    'price'?: number;
+  }
 
   interface IntrinsicElements {
     'my-component': MyComponent;
