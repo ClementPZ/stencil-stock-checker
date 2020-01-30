@@ -1,4 +1,5 @@
-import { Component, h, State} from "@stencil/core";
+import { Component, h, State, Prop} from "@stencil/core";
+import { AV_API_KEY } from "../../global/global";
 
 // component built with stencil.js
 // using "Fetch" api and the API of vantage.com
@@ -11,11 +12,17 @@ import { Component, h, State} from "@stencil/core";
 export class StockChecker {
 
     @State() price: number;
+    @State() userInput: string;
     
+    // getUserInput() {
+    //     const input = document.getElementById("stock-checker-symbo");
+    //     console.log(input);
+    // }
+
     onShowPrice(event: Event) {
         event.preventDefault();
         console.log("fetching...")
-        fetch("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=demo")
+        fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=FB&apikey=${AV_API_KEY}`)
         .then(resp => resp.json())
         .then(data => {
             this.price = +data['Global Quote']['05. price'];
