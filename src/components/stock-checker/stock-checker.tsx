@@ -10,17 +10,15 @@ import { AV_API_KEY } from "../../global/global";
 })
 
 export class StockChecker {
-    
     input: HTMLInputElement;
-
     @Element() element: HTMLElement;
     @State() price: number;
-    @State() userInput: string;
 
     onShowPrice(event: Event) {
         event.preventDefault();
-        const userInput = (this.element.shadowRoot.querySelector("#stock-checker-symbol") as HTMLInputElement).value.toUpperCase();
-        event.preventDefault();
+        // const userInput = (this.element.shadowRoot.querySelector("#stock-checker-symbol") as HTMLInputElement).value.toUpperCase();
+        const userInput = this.input.value;
+        console.log(userInput);
         console.log("fetching...")
         fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${userInput}&apikey=${AV_API_KEY}`)
         .then(resp => resp.json())
