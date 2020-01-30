@@ -10,15 +10,12 @@ import { AV_API_KEY } from "../../global/global";
 })
 
 export class StockChecker {
+    
+    input: HTMLInputElement;
 
     @Element() element: HTMLElement;
     @State() price: number;
     @State() userInput: string;
-    
-    // getUserInput() {
-    //     const input = document.getElementById("stock-checker-symbo");
-    //     console.log(input);
-    // }
 
     onShowPrice(event: Event) {
         event.preventDefault();
@@ -37,7 +34,7 @@ export class StockChecker {
     render() {
         return [
             <form action="#" onSubmit={this.onShowPrice.bind(this)}>
-                <input id="stock-checker-symbol"/>
+                <input id="stock-checker-symbol" ref={el => this.input = el}/>
                 <button id="stock-checker-submit" type="submit">Show stock price</button>
             </form>,
             <div id="stock-checker-result">
