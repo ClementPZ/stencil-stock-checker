@@ -15,6 +15,7 @@ export class StockChecker {
     @State() price: number;
     @State() stockUserInputing: string;
     @State() userInputValid = false;
+    @State() resultContent = <div id="stock-checker-result">Please enter a symbol</div> ;
 
     onUserInput(event: Event) {
         this.stockUserInputing = (event.target as HTMLInputElement).value;
@@ -24,7 +25,6 @@ export class StockChecker {
             this.userInputValid = false;
         }
     }
-
     onShowPrice(event: Event) {
         event.preventDefault();
         // const userInput = (this.el.shadowRoot.querySelector("#stock-checker-symbol") as HTMLInputElement).value.toUpperCase();
@@ -33,12 +33,24 @@ export class StockChecker {
         fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${userInput}&apikey=${AV_API_KEY}`)
         .then(resp => resp.json())
         .then(data => {
-            this.price = +data['Global Quote']['05. price'];
+            if (!data["Error Message"]) {
+                this.price = +data['Global Quote']['05. price'];
+                this.resultContent = 
+                    <div id="stock-checker-result">
+                        <h4 id="stock-checker-result-text">Price:</h4>
+                        <h4 id="stock-checker-result-price">$ {this.price}</h4>
+                    </div>;
+            } else {
+                throw new Error ("Invalid symbol!");
+            }
         })
         .catch(err => {
             console.log(err);
         })
     }
+
+
+
     render() {
         return [
             <form action="#" onSubmit={this.onShowPrice.bind(this)}>
@@ -50,9 +62,8 @@ export class StockChecker {
                     />
                 <button id="stock-checker-submit" type="submit" disabled={!this.userInputValid}>Show stock price</button>
             </form>,
-            <div id="stock-checker-result">
-                <h4 id="stock-checker-result-text">Price:</h4>
-                <h4 id="stock-checker-result-price">$ {this.price}</h4>
+            <div>
+                {this.resultContent}
             </div>,
             <p>Stock checker proudly developped with Stencil.JS 🥰</p>
         ]
