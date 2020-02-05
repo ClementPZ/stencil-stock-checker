@@ -10,15 +10,21 @@ import { AV_API_KEY } from "../../global/global";
 })
 
 export class StockChecker {
-    input: HTMLInputElement;
-    @Element() element: HTMLElement;
+    stockInput: HTMLInputElement;
+    // @Element() el: HTMLElement;
     @State() price: number;
+    @State() stockUserInputing: string;
+
+    onUserInput(event: Event) {
+        this.stockUserInputing = (event.target as HTMLInputElement).value;
+        console.log(`user inputs = ${this.stockUserInputing}`);
+        // la valeur en train d'etre taper, mise a jour a chaque user input key
+    }
 
     onShowPrice(event: Event) {
         event.preventDefault();
-        // const userInput = (this.element.shadowRoot.querySelector("#stock-checker-symbol") as HTMLInputElement).value.toUpperCase();
-        const userInput = this.input.value;
-        console.log(userInput);
+        // const userInput = (this.el.shadowRoot.querySelector("#stock-checker-symbol") as HTMLInputElement).value.toUpperCase();
+        const userInput = this.stockInput.value;
         console.log("fetching...")
         fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${userInput}&apikey=${AV_API_KEY}`)
         .then(resp => resp.json())
@@ -32,7 +38,12 @@ export class StockChecker {
     render() {
         return [
             <form action="#" onSubmit={this.onShowPrice.bind(this)}>
-                <input id="stock-checker-symbol" ref={el => this.input = el}/>
+                <input 
+                    id="stock-checker-symbol" 
+                    ref={element => this.stockInput = element}
+                    // value={this.stockUserInputing}
+                    onInput={this.onUserInput.bind(this)}
+                    />
                 <button id="stock-checker-submit" type="submit">Show stock price</button>
             </form>,
             <div id="stock-checker-result">
