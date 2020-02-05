@@ -18,9 +18,7 @@ form {
 }
 button {
     margin: 8px 16px;
-
     padding: 8px 16px;
-    
     border-radius: 9px;
     background-color: white;
     color:  lightcoral;
@@ -38,6 +36,11 @@ form button:focus,
 form input:focus {
     outline: none;
     box-shadow: 0px 1px 4px rgba(0,0,0,0.2);
+}
+form button:disabled {
+    background-color: white;
+    color:  grey;
+    border: 1px solid grey;
 }
 input {
     color: lightcoral;

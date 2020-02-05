@@ -14,11 +14,15 @@ export class StockChecker {
     // @Element() el: HTMLElement;
     @State() price: number;
     @State() stockUserInputing: string;
+    @State() userInputValid = false;
 
     onUserInput(event: Event) {
         this.stockUserInputing = (event.target as HTMLInputElement).value;
-        console.log(`user inputs = ${this.stockUserInputing}`);
-        // la valeur en train d'etre taper, mise a jour a chaque user input key
+        if (this.stockUserInputing.trim() !== "") {
+            this.userInputValid = true;
+        } else {
+            this.userInputValid = false;
+        }
     }
 
     onShowPrice(event: Event) {
@@ -44,7 +48,7 @@ export class StockChecker {
                     // value={this.stockUserInputing}
                     onInput={this.onUserInput.bind(this)}
                     />
-                <button id="stock-checker-submit" type="submit">Show stock price</button>
+                <button id="stock-checker-submit" type="submit" disabled={!this.userInputValid}>Show stock price</button>
             </form>,
             <div id="stock-checker-result">
                 <h4 id="stock-checker-result-text">Price:</h4>
