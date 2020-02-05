@@ -15,7 +15,7 @@ export class StockChecker {
     @State() price: number;
     @State() stockUserInputing: string;
     @State() userInputValid = false;
-    @State() resultContent = <div id="stock-checker-result">Please enter a symbol</div> ;
+    @State() resultContent = <div id="stock-checker-result">Please enter a symbol</div>;
 
     onUserInput(event: Event) {
         this.stockUserInputing = (event.target as HTMLInputElement).value;
@@ -45,6 +45,10 @@ export class StockChecker {
             }
         })
         .catch(err => {
+            this.resultContent = 
+            <div id="stock-checker-result">
+                Please enter a valid symbol  
+            </div>
             console.log(err);
         })
     }
