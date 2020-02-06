@@ -15,7 +15,7 @@ export class StockChecker {
     @State() price: number;
     @State() stockUserInputing: string;
     @State() userInputValid = false;
-    @State() resultContent = <div id="stock-checker-result">Please enter a symbol</div>;
+    @State() error: string;
 
     onUserInput(event: Event) {
         this.stockUserInputing = (event.target as HTMLInputElement).value;
@@ -35,27 +35,27 @@ export class StockChecker {
         .then(data => {
             if (!data["Error Message"]) {
                 this.price = +data['Global Quote']['05. price'];
-                this.resultContent = 
-                    <div id="stock-checker-result">
-                        <h4 id="stock-checker-result-text">Price:</h4>
-                        <h4 id="stock-checker-result-price">$ {this.price}</h4>
-                    </div>;
             } else {
-                throw new Error ("Invalid symbol!");
+                throw new Error ("Please enter a valid stock symbol");
             }
         })
         .catch(err => {
-            this.resultContent = 
-            <div id="stock-checker-result">
-                Please enter a valid symbol  
-            </div>
+            this.error = err.message
             console.log(err);
         })
     }
-
-
-
     render() {
+        let resultContent = <div id="stock-checker-result">Please enter a stock symbol</div>;
+        if (this.error) {
+            resultContent = <div id="stock-checker-result">{this.error}</div>
+        } 
+        if (this.price) { 
+            resultContent = 
+                <div id="stock-checker-result">
+                    <h4 id="stock-checker-result-text">Price:</h4>
+                    <h4 id="stock-checker-result-price">$ {this.price}</h4>
+                </div>;
+        }
         return [
             <form action="#" onSubmit={this.onShowPrice.bind(this)}>
                 <input 
@@ -67,7 +67,7 @@ export class StockChecker {
                 <button id="stock-checker-submit" type="submit" disabled={!this.userInputValid}>Show stock price</button>
             </form>,
             <div>
-                {this.resultContent}
+                {resultContent}
             </div>,
             <p>Stock checker proudly developped with Stencil.JS 🥰</p>
         ]
